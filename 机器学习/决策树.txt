@@ -1,0 +1,41 @@
+from sklearn import tree    # 导入库
+from sklearn.model_selection import train_test_split    # 划分训练集和测试集
+import pandas as pd 
+import graphviz
+
+# pandas导入数据，数据不能为中文，要数值型数据
+data_train = data.iloc[:,:5]    # 确定分类数据
+data_target = data.iloc[:,-1:]    # 确定目标数据
+
+x_train,x_test,y_train,y_test = train_test_split(data_train,data_target,test_size=0.3,shuffle=True)
+# 创建训练集和测试集数据
+
+clf = tree.DecisionTreeClassifier(criterion = 'gini')    # 这里是核心，采用基尼系数来计算不纯度
+# 最大深度：max_depth  剪枝：min_samples_leaf & min_samples_split
+
+clf = clf.fit(x_train,y_train)    # 训练模型
+
+score = clf.score(x_test,y_test)    # 查看模型分数
+
+photo_ini = tree.export_graphviz(clf
+                             ,feature_names=['分类1','分类2','分类3','分类4','分类5']
+                             ,class_names=['目标1','目标2']
+                            ,filled=True
+                            ,rounded=True)
+
+photo_vis = graphviz.Source(photo_ini)
+
+# 以下是模型调优
+test = []
+for i in range(10):
+    clf = tree.DecisionTreeClassifier(max_depth = i + 1    # 循环这里
+                                     ,criterion="entropy"    # 不纯度计算方式
+                                     ,random_state=30
+                                     ,splitter="random"
+                                     )
+    clf = clf.fit(x_train, y_train)
+    score = clf.score(x_test, y_test)
+    test.append(score)
+plt.plot(range(1,11),test,color="red",label="max_depth")
+plt.legend()
+plt.show()
