@@ -1,5 +1,3 @@
-词云图
-方法1（可直接词频统计后生成）
 # 数据类型：txt文件无所谓，但做词云图时候需用字典格式
 import jieba    # 导入库
 import pandas as pd
@@ -17,15 +15,16 @@ for i in txt2:    # 遍历分词结果
 
 x = sorted(miao.items(),key=lambda x:x[1] ,reverse=True)    # 字典排序，items用于输出字典键值对
 
-import pyecharts.options as opts    # 导入pyechart
+from pyecharts import options as opts    # 导入pyechart
 from pyecharts.charts import WordCloud    # 导入词云图
+from pyecharts.globals import SymbolType    # 导入风格
 
 data = x    # X这里必须是以列表的形式传入数据
 
 词云图 =(
     WordCloud(init_opts=opts.InitOpts(width='1920px',height='1080px',theme='westeros',page_title= "可视化"))
     # width画布宽，height画布高，theme主题：light,dark,chalk,essos,infographic,macarons,shine,walden,westeros
-    .add(series_name="词云图", data_pair=data, word_size_range=[20, 220])
+    .add(series_name="词云图", data_pair=data, word_size_range=[20, 220],shape=SymbolType.DIAMOND)
     .set_global_opts(
         title_opts=opts.TitleOpts(
             title="词云图名称", title_textstyle_opts=opts.TextStyleOpts(font_size=23)
