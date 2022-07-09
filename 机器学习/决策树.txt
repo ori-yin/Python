@@ -26,6 +26,7 @@ photo_ini = tree.export_graphviz(clf
 photo_vis = graphviz.Source(photo_ini)    # 可视化
 
 clf.feature_importances_    # 用于看哪一列对树的作用更加强烈
+[*zip(feature_names,clf.feature_importances_)]    # 把列名和该列重要程度打包成元组，方便查看
 
 # 以下是模型调优
 test = []
