@@ -1,7 +1,7 @@
 from sklearn import tree    # 导入库
 from sklearn.model_selection import train_test_split    # 划分训练集和测试集
-import pandas as pd 
-import graphviz
+import pandas as pd    # 数据清洗包
+import graphviz    # 可视化包
 
 # pandas导入数据，数据不能为中文，要数值型数据
 data_train = data.iloc[:,:5]    # 确定分类数据
@@ -18,12 +18,14 @@ clf = clf.fit(x_train,y_train)    # 训练模型
 score = clf.score(x_test,y_test)    # 查看模型分数
 
 photo_ini = tree.export_graphviz(clf
-                             ,feature_names=['分类1','分类2','分类3','分类4','分类5']
-                             ,class_names=['目标1','目标2']
-                            ,filled=True
-                            ,rounded=True)
+                             ,feature_names=['分类1','分类2','分类3','分类4','分类5']    # 列名
+                             ,class_names=['目标1','目标2']    # target名字
+                            ,filled=True    # 上颜色
+                            ,rounded=True)    # 圆角
 
-photo_vis = graphviz.Source(photo_ini)
+photo_vis = graphviz.Source(photo_ini)    # 可视化
+
+clf.feature_importances_    # 用于看哪一列对树的作用更加强烈
 
 # 以下是模型调优
 test = []
