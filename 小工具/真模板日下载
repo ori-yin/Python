@@ -1,5 +1,11 @@
 import pandas as pd
 
+# 当有多个excel需要拼起来的时候，用下面的代码
+excel1 = pd.read_csv('D:\垃圾桶二号\\1.csv',encoding='GBK')
+excel2 = pd.read_csv('D:\垃圾桶二号\\2.csv',encoding='GBK')
+excel3 = pd.concat([excel1,excel2])
+df_row = excel3
+
 path = 'D:\ori-learn\\9月模板日下载数据2022.csv'    # 路径
 
 df_row = pd.read_csv(path,encoding='GBK')    # 读取文件
