@@ -6,9 +6,7 @@ excel2 = pd.read_csv('D:\垃圾桶二号\\2.csv',encoding='GBK')
 excel3 = pd.concat([excel1,excel2])
 df_row = excel3
 
-path = 'D:\ori-learn\\9月模板日下载数据2022.csv'    # 路径
-
-df_row = pd.read_csv(path,encoding='GBK')    # 读取文件
+# df_row = pd.read_csv(path,encoding='GBK')    # 读取文件
 
 df_g = df_row.groupby(['一级分类','二级分类']).agg({'编辑人数':'sum','下载人数':'sum','素材ID':'nunique'})    # 每列怎么算
 
