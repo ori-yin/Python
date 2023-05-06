@@ -20,7 +20,7 @@ for i in range(500):    # 遍历前N个
     word,count = item[i]    # word=key,count=value，字典键值对赋值
     # print('{0:<10}{1:>5}'.format(word,count))    # 输出结束，网上抄的，不理解做法
     print(f'{word}:{count}')    # 输出结果，可以替换：以便后期分列
-
+------------------------------------------------------------------------------------
 方法2（更快）
 import jieba    # 导入库
 
@@ -44,3 +44,48 @@ x2 =pd.DataFrame(data=x,columns=['关键词','次数'],index=None)
 x2.to_csv('G:\杂七杂八\桑基图学习\词云图.csv')    # 保持到本地文件
 print(x2)
 print('导出成功')
+------------------------------------------------------------------------------------
+方法3（带条件求和）
+import jieba
+import pandas as pd
+
+# 读取CSV文件，包含标题和下载次数两列
+data = pd.read_csv('C:\\Users\\HCKJ\\Desktop\\插画.csv',encoding='GBK')
+
+# 分词后条件求和的列改为int格式
+data['下载次数'] = data['下载次数'].astype(int)
+
+# 创建空字典用于存储词频和条件求和
+word_freq = {}
+likes_sum = {}
+
+# 遍历每一行数据
+for index, row in data.iterrows():
+    sentence = row['标题']
+    likes = row['下载次数']
+
+    # 使用jieba分词
+    words = jieba.lcut(sentence)
+
+    # 统计词频
+    for word in words:
+        if word not in word_freq:
+            word_freq[word] = 0
+        word_freq[word] += 1
+
+        # 根据条件求和相应词频的条件求和
+        if word not in likes_sum:
+            likes_sum[word] = 0
+        likes_sum[word] += likes
+
+# 将词频和条件求和转化为DataFrame
+result = pd.DataFrame({'标题': list(word_freq.keys()),
+                       '频率': list(word_freq.values()),
+                       '条件求和': [likes_sum[word] for word in word_freq.keys()]})
+
+# 按频率降序排序
+result = result.sort_values(by='条件求和', ascending=False)
+result = result.reset_index(drop=True)
+
+# 输出结果
+result.to_csv('C:\\Users\\HCKJ\\Desktop\\结果.csv')
