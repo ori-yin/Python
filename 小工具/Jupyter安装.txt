@@ -1,7 +1,7 @@
 Jupyter安装
 方法1
 1.下载谷歌浏览器
-2.安装anaconda3，安装时候记得勾选环境配置
+2.安装anaconda3，安装时候记得勾选环境配置  https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
 3.cmd唤起，安装mysql镜像文件pip install pymysql
 4.安装Jupyter镜像文件pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jupyter_contrib_nbextensions
 5.cmd配置Jupyter，输入jupyter contrib nbextension install --user
