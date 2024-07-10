@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 def move_images(src_dir, dst_dir, image_extensions=None):
     """
     将源文件夹及其子文件夹中的所有图片文件移动到目标文件夹。
-    
+    如果要复制则改为copy_images
     参数:
     src_dir (str): 源文件夹路径
     dst_dir (str): 目标文件夹路径
@@ -29,7 +29,7 @@ def move_images(src_dir, dst_dir, image_extensions=None):
         dst_file (str): 目标文件路径
         """
         if not os.path.exists(dst_file):
-            shutil.move(src_file, dst_file)
+            shutil.move(src_file, dst_file)    # 如果是复制用这个shutil.copy2(src_file, dst_file)
         else:
             # 如果目标文件夹中存在同名文件，添加计数器重命名文件
             base, ext = os.path.splitext(dst_file)
@@ -37,7 +37,7 @@ def move_images(src_dir, dst_dir, image_extensions=None):
             while os.path.exists(dst_file):
                 dst_file = f"{base}_{counter}{ext}"
                 counter += 1
-            shutil.move(src_file, dst_file)
+            shutil.move(src_file, dst_file)    # 如果是复制用这个shutil.copy2(src_file, dst_file)
         print(f"Moved: {src_file} to {dst_file}")
 
     files_to_move = []
