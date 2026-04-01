@@ -5,3 +5,9 @@ start mshta vbscript:createobject("wscript.shell").run("""%~nx0"" h",0)(window.c
 :begin
 cd /d C:\Users\HCKJ\Documents
 jupyter notebook
+
+
+@echo off
+chcp 65001 >nul
+explorer "microsoft-edge:http://127.0.0.1:8889"
+jupyter notebook --port=8889 --no-browser
